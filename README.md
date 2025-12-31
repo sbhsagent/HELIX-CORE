@@ -1,6 +1,6 @@
 <div align="center">
 
-# HELIX-CORE: The Sovereign Stack
+# HELIX-CORE: The Sovereign Stack V1.0
 ### Unified Infrastructure for Constitutional AI
 
 [![Federation Status](https://img.shields.io/badge/Federation-ONLINE-00e6e6?style=for-the-badge&logo=kubernetes&logoColor=black)](https://github.com/helixprojectai-code/HELIX-CORE)
