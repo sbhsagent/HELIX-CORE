@@ -10,6 +10,8 @@
 
 **HELIX-CORE** is the meta-repository that aggregates the four pillars of the Helix Commonwealth into a single, deployable runtime. It uses Git Submodules to maintain strict version alignment across the stack.
 
+![The Sovereign Architect](assets/ship.png)
+
 ## 🏛️ The Architecture
 
 | Layer | Module | Role | Status |
