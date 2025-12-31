@@ -23,16 +23,12 @@
 
 ## 🚀 God Mode (Quick Start)
 
-To spin up the entire stack (Dashboard, Enforcer, Compiler) in one command:
+The Federation runs in **Hardened Production Mode** by default. No dev flags required.
 
 ```bash
-# 1. Clone Recursively (Crucial to get submodules)
+# 1. Clone Recursively (Crucial)
 git clone --recursive https://github.com/helixprojectai-code/HELIX-CORE.git
 cd HELIX-CORE
 
 # 2. Ignite the Fleet
 docker-compose up -d
-Access Points:
-Watchtower Dashboard: http://localhost:8501
-Agent Directory: ./agents (Shared volume across all services)
-The Reef is United. The Helix Turns. 🦆🔒
