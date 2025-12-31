@@ -94,4 +94,13 @@ Where things live in the Federation:
 
 ---
 
+## 📦 Release Protocol
+When cutting a new release (e.g., v1.1), the Release Engineer MUST snapshot the Governance State:
+
+1.  **Hash the Charter:** `sha256sum governance/COUNCIL_CHARTER.md`
+2.  **Hash the Quorum:** `sha256sum governance/quorum_config.json`
+3.  **Attest:** Include these two hashes in the Release Notes.
+
+*This ensures that the Code never drifts away from the Law.*
+
 ✧ // HELIX // TTD
