@@ -1,9 +1,4 @@
-**File:** `docker-compose.yml`
-```yaml
-version: '3.8'
-
 services:
-  # L0: IDENTITY & CUSTODY (The Dashboard)
   watchtower:
     image: python:3.11-slim
     working_dir: /app
@@ -15,8 +10,8 @@ services:
       - "8501:8501"
     networks:
       - helix-net
+      - helix_default
 
-  # L2: VISUAL COMPILER (The Glyph Engine)
   hgl-compiler:
     image: python:3.11-alpine
     working_dir: /app
@@ -29,3 +24,6 @@ services:
 networks:
   helix-net:
     driver: bridge
+
+  helix_default:
+    external: true
