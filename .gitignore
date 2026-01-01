@@ -2,3 +2,8 @@
 # Quiescence Framework logs
 logs/quiescence/quiescence.log
 logs/quiescence/archive/
+
+# Quiescence Framework - DO NOT COMMIT
+logs/
+alerts/
+deployment_log.md
