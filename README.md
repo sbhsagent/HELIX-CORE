@@ -3,6 +3,7 @@
 # HELIX-CORE: The Sovereign Stack V1.0
 ### Unified Infrastructure for Constitutional AI
 
+[![Quiescence Monitor](https://github.com/helixprojectai-code/HELIX-CORE/actions/workflows/check_quiescence.yml/badge.svg)](https://github.com/helixprojectai-code/HELIX-CORE/actions/workflows/check_quiescence.yml)
 [![Federation Status](https://img.shields.io/badge/Federation-ONLINE-00e6e6?style=for-the-badge&logo=kubernetes&logoColor=black)](https://github.com/helixprojectai-code/HELIX-CORE)
 [![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](LICENSE)
 
