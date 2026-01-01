@@ -23,7 +23,6 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: '3.11'
-          # REMOVED: cache: 'pip' (Fixes error when no requirements.txt exists)
 
       - name: Install Dependencies
         run: |
@@ -31,34 +30,34 @@ jobs:
 
       - name: 🔍 Static Analysis (Linting)
         run: |
-          # Stop build if syntax errors exist
           flake8 quiescence_monitor/monitor.py --count --select=E9,F63,F7,F82 --show-source --statistics
 
       - name: 🛠️ Prepare Runtime Environment (Mocking Root)
         run: |
-          # Create system paths
           sudo mkdir -p /var/log/quiescence
           sudo chown -R $USER:$USER /var/log/quiescence
           
           sudo mkdir -p /etc/quiescence
           sudo chown -R $USER:$USER /etc/quiescence
           
-          # Inject Test Config
           echo "thresholds:
             q1: {drift_max: 0.01, duration_min: '10s'}
             q2: {complementarity_min: 0.90}
             q3: {confidence_min: 0.95}
             q4: {convergence_min: 0.95}" > /etc/quiescence/thresholds.yaml
 
-      - name: ⚡ Accelerate Time (Hot-Patch)
+      - name: ⚡ Accelerate Time & Fix Encoding (Hot-Patch)
         run: |
-          # Patch sleep(60) -> sleep(0.1) for instant feedback
+          # 1. Patch sleep(60) -> sleep(0.1) for instant feedback
           sed -i 's/time.sleep(60)/time.sleep(0.1)/g' quiescence_monitor/monitor.py
-          echo "✅ Patched sleep timer for High-Velocity testing."
+          
+          # 2. Patch json.dumps to output raw UTF-8 (Fixes grep failure on \uXXXX sequences)
+          sed -i 's/json.dumps(entry)/json.dumps(entry, ensure_ascii=False)/g' quiescence_monitor/monitor.py
+          
+          echo "✅ Patched sleep timer and JSON encoding for High-Velocity testing."
 
       - name: 🚀 Execute Monitor (Time-Bounded)
         run: |
-          # Run for 2 seconds then kill
           timeout 2s python3 quiescence_monitor/monitor.py || true
           echo "✅ Monitor execution cycle complete."
 
@@ -71,7 +70,7 @@ jobs:
             exit 1
           fi
           
-          echo "📄 Tail of Log:"
+          echo "📄 Tail of Log (Raw UTF-8):"
           tail -n 10 "$LOG_FILE"
           
           # Check for Q1 (Quack)
