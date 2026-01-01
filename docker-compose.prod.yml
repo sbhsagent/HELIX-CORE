@@ -28,3 +28,38 @@ networks:
   helix-net:
     driver: bridge
     internal: true # No internet access
+
+  # Quiescence Monitoring Service
+  quiescence_monitor:
+    image: helix/quiescence-monitor:v1.1
+    container_name: helix_quiescence_monitor
+    restart: unless-stopped
+    volumes:
+      - ./logs/quiescence:/var/log/quiescence
+      - ./config/quiescence:/etc/quiescence
+    environment:
+      - Q1_DRIFT_THRESHOLD=0.00
+      - Q2_COMPLEMENTARITY_THRESHOLD=0.92
+      - Q3_CONFIDENCE_THRESHOLD=0.95
+      - Q4_CONVERGENCE_THRESHOLD=0.95
+      - MONITORING_INTERVAL=60s
+    depends_on:
+      - federation_orchestrator
+    networks:
+      - helix_internal
+
+  # Quiescence Dashboard (Optional - comment out if not needed)
+  # quiescence_dashboard:
+  #   image: helix/quiescence-dashboard:v1.1
+  #   container_name: helix_quiescence_dashboard
+  #   restart: unless-stopped
+  #   ports:
+  #     - "8083:80"
+  #   volumes:
+  #     - ./dashboards/quiescence:/usr/share/nginx/html/config
+  #   environment:
+  #     - API_URL=http://quiescence_monitor:8082
+  #   depends_on:
+  #     - quiescence_monitor
+  #   networks:
+  #     - helix_internal
