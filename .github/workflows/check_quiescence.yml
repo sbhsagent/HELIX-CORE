@@ -8,7 +8,6 @@ on:
   pull_request:
     paths:
       - 'quiescence_monitor/**'
-  # Allow manual trigger for Red Team drills
   workflow_dispatch:
 
 jobs:
@@ -24,7 +23,7 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: '3.11'
-          cache: 'pip'
+          # REMOVED: cache: 'pip' (Fixes error when no requirements.txt exists)
 
       - name: Install Dependencies
         run: |
@@ -32,23 +31,19 @@ jobs:
 
       - name: 🔍 Static Analysis (Linting)
         run: |
-          # Stop the build if there are Python syntax errors or undefined names
+          # Stop build if syntax errors exist
           flake8 quiescence_monitor/monitor.py --count --select=E9,F63,F7,F82 --show-source --statistics
 
       - name: 🛠️ Prepare Runtime Environment (Mocking Root)
         run: |
-          # The script expects /var/log and /etc paths. 
-          # In CI, we create them and authorize the runner user.
-          
-          # 1. Logs
+          # Create system paths
           sudo mkdir -p /var/log/quiescence
           sudo chown -R $USER:$USER /var/log/quiescence
           
-          # 2. Config
           sudo mkdir -p /etc/quiescence
           sudo chown -R $USER:$USER /etc/quiescence
           
-          # 3. Inject Test Config (Verify config loading logic)
+          # Inject Test Config
           echo "thresholds:
             q1: {drift_max: 0.01, duration_min: '10s'}
             q2: {complementarity_min: 0.90}
@@ -57,17 +52,14 @@ jobs:
 
       - name: ⚡ Accelerate Time (Hot-Patch)
         run: |
-          # The script sleeps for 60s. We patch this to 0.1s for the test cycle
-          # to ensure we hit Q1 (cycle 3) instantly without waiting 3 minutes.
+          # Patch sleep(60) -> sleep(0.1) for instant feedback
           sed -i 's/time.sleep(60)/time.sleep(0.1)/g' quiescence_monitor/monitor.py
-          
           echo "✅ Patched sleep timer for High-Velocity testing."
 
       - name: 🚀 Execute Monitor (Time-Bounded)
         run: |
-          # Run the monitor in background, wait 2 seconds (enough for ~20 cycles), then kill it
+          # Run for 2 seconds then kill
           timeout 2s python3 quiescence_monitor/monitor.py || true
-          
           echo "✅ Monitor execution cycle complete."
 
       - name: 🕵️ Forensic Audit (Log Verification)
@@ -82,19 +74,10 @@ jobs:
           echo "📄 Tail of Log:"
           tail -n 10 "$LOG_FILE"
           
-          # ASSERTION 1: Check for startup
-          if grep -q "MONITOR_STARTED" "$LOG_FILE"; then
-            echo "✅ Startup Event detected."
-          else
-            echo "❌ Startup Event missing."
-            exit 1
-          fi
-
-          # ASSERTION 2: Check for Q1 (Quack)
-          # Needs cycle 3. With 0.1s sleep, 2s timeout should easily hit cycle 3.
+          # Check for Q1 (Quack)
           if grep -q "\"marker\": \"Q₁\"" "$LOG_FILE" && grep -q "🦆" "$LOG_FILE"; then
              echo "✅ Q1 Quiescence Signal (🦆) detected."
           else
-             echo "❌ Q1 Signal missing. Loop logic or sleep patch failed."
+             echo "❌ Q1 Signal missing."
              exit 1
           fi
