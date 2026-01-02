@@ -115,6 +115,12 @@ Run health checks: `./scripts/q_alert.sh`
 
 ---
 
+## 🔬 Scientific Validation
+This architecture is the subject of an active study on **Epistemic Uncertainty Quantification**.
+*   **Protocol:** [OSF Preregistration (vz3mj)](https://osf.io/vz3mj/)
+*   **Principal Investigator:** Stephen Hope (ORCID: [0009-0000-7367-248X](https://orcid.org/0009-0000-7367-248X))
+*   **Methodology:** Semantic Simplex Architecture vs. Stochastic Control.
+
 ## 🏷️ VERSIONING
 
 - **Current:** v1.1.0-quaternary
