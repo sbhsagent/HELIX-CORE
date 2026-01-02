@@ -44,7 +44,7 @@ git clone --recursive https://github.com/helixprojectai-code/HELIX-CORE.git
 cd HELIX-CORE
 
 # 2. Ignite Watchtower
-./ignite.sh'''
+./ignite.sh```
 
 ## 🔬 Scientific Validation
 This architecture is the subject of an active study on Epistemic Uncertainty Quantification.
