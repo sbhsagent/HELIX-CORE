@@ -38,20 +38,17 @@ The Federation operates under ratified bylaws and scientific doctrine.
 ## 🚀 Ignition (God Mode)
 The fleet runs in **Hardened Production Mode** by default.
 
-```bash
+
 # 1. Clone Recursively
 git clone --recursive https://github.com/helixprojectai-code/HELIX-CORE.git
 cd HELIX-CORE
 
 # 2. Ignite Watchtower
 ./ignite.sh
-🔬 Scientific Validation
+
+## 🔬 Scientific Validation
 This architecture is the subject of an active study on Epistemic Uncertainty Quantification.
 Protocol: OSF Preregistration (vz3mj)
 Principal Investigator: Stephen Hope (ORCID: 0009-0000-7367-248X)
 Methodology: Semantic Simplex Architecture vs. Stochastic Control.
 Dataset: research/data/ambiguity_corpus_v1.json (N=1000).
-🤝 Acknowledgments
-Dr. Ryan van Gelder (Red Team): For critical analysis regarding hermeticity, supply chain pinning, and the Lazarus Protocol.
-The 1,500+ Stealth Nodes: The silent majority.
-The Reef is Built. The Helix Turns.
