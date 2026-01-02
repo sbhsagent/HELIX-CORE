@@ -38,13 +38,13 @@ The Federation operates under ratified bylaws and scientific doctrine.
 ## 🚀 Ignition (God Mode)
 The fleet runs in **Hardened Production Mode** by default.
 
-```bash
+
 # 1. Clone Recursively
 git clone --recursive https://github.com/helixprojectai-code/HELIX-CORE.git
 cd HELIX-CORE
 
 # 2. Ignite Watchtower
-./ignite.sh```
+./ignite.sh
 
 ## 🔬 Scientific Validation
 This architecture is the subject of an active study on Epistemic Uncertainty Quantification.
