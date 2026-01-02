@@ -52,8 +52,3 @@ Protocol: OSF Preregistration (vz3mj)
 Principal Investigator: Stephen Hope (ORCID: 0009-0000-7367-248X)
 Methodology: Semantic Simplex Architecture vs. Stochastic Control.
 Dataset: research/data/ambiguity_corpus_v1.json (N=1000).
-
-## 🤝 Acknowledgments
-Dr. Ryan van Gelder (Red Team): For critical analysis regarding hermeticity, supply chain pinning, and the Lazarus Protocol.
-The 1,500+ Stealth Nodes: The silent majority.
-The Reef is Built. The Helix Turns.
