@@ -10,3 +10,6 @@
 [submodule "grammar"]
 	path = grammar
 	url = https://github.com/helixprojectai-code/Helix-TTD-v1.0-Constitutional-Grammar.git
+[submodule "helix-ledger"]
+	path = helix-ledger
+	url = https://github.com/helixprojectai-code/HELIX-LEDGER.git
