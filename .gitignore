@@ -7,3 +7,7 @@ logs/quiescence/archive/
 logs/
 alerts/
 deployment_log.md
+
+
+# Local development
+dev/
