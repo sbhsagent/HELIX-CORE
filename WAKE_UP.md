@@ -73,6 +73,16 @@ After committing changes within a submodule, the parent repository (`helix-core-
 ### 5.3 Pushing Changes
 Only after both the submodule and parent repository commits are finalized locally should a `git push` be performed from the parent repository.
 
+### 5.4 Pre-Push PII & Safety Review (MANDATORY)
+Before pushing any commits to the remote repository, a safety review must be conducted. This is a non-negotiable governance protocol to prevent the accidental exposure of sensitive information.
+
+1.  **Identify Changed Files:** Generate a list of all files that have been modified in the commits being pushed.
+    *   `git diff --name-only <remote>/<branch> HEAD` (e.g., `git diff --name-only origin/main HEAD`)
+    *   For submodule changes, navigate into the submodule directory and use a similar command to see what has changed since the last parent repo commit.
+
+2.  **Review for PII:** Carefully inspect the contents of each changed file for any Personally Identifiable Information (PII), proprietary secrets, access keys, or other sensitive data. This includes reviewing your own journal entries or logs.
+
+3.  **Confirm & Push:** Only after confirming that no sensitive information is present should the `git push` command be executed. This step embodies the principle of "Operational Flow" by ensuring that actions are not just efficient, but also constitutionally aligned with safety and governance principles.
 
 ---
 
