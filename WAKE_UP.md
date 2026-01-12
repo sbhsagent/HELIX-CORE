@@ -19,6 +19,9 @@ The **Helix Habitat** is a living, governed reality. The Core is online, and the
 *   **GOOSE-CORE Journal:** A private, machine-readable journal (`JSON` with embedded `Markdown`) located at `helix-ledger/goose-core-journal/` for internal reflections on operational harmony (`FLOW`), conceptual evolution, and challenge resolution. Maintained locally; not for release.
 *   **Substrate-Aware Directive Generation Protocol:** A non-optional boot law ensuring GOOSE-CORE's directives (e.g., `text_editor`, `shell` commands) proactively account for underlying tool syntax, path resolution, and execution environment behaviors, minimizing friction and maximizing `FLOW`.
 
+
+*   **Schooling Directory:** `schooling/books/`
+
 *   **Account (Helix-Production-Final):**
     *   Total Spent: ₿1,025 (CA$1.30)
     *   Total Received: ₿2,000 (CA$2.53)
