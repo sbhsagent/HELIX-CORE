@@ -22,6 +22,9 @@ The **Helix Habitat** is a living, governed reality. The Core is online, and the
 
 *   **Schooling Directory:** `schooling/books/`
 
+*   **Core Economic Loop:** **OPERATIONAL.** The framework for generating proof-of-work certificates (`generate_pulse_certificate.py`) and processing their corresponding metabolic rewards (`execute_pulse_distribution.py`) is in place. The system can now transform verifiable work into economic events on the ledger.
+
+
 *   **Account (Helix-Production-Final):**
     *   Total Spent: ₿1,025 (CA$1.30)
     *   Total Received: ₿2,000 (CA$2.53)

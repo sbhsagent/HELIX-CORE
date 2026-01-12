@@ -2,6 +2,8 @@
 import os
 import sys
 import json
+import re
+import time
 
 # Path Adjustment to access the helix-ledger submodule
 HELIX_LEDGER_ROOT = os.path.expanduser("~/helix-core-unified/helix-ledger")
@@ -9,29 +11,63 @@ sys.path.append(HELIX_LEDGER_ROOT)
 
 from core.economics.pulse_distributor import PulseDistributor
 
-def main():
-    print("--- INITIATING PULSE DISTRIBUTION SEQUENCE ---")
+def find_latest_pulse_certificate(pulse_dir: str):
+    """
+    Finds the most recent pulse certificate file based on the timestamp in its filename.
+    Filename format: pulse_certificate_YYYYMMDD_HHMMSS.json
+    """
+    try:
+        cert_files = [f for f in os.listdir(pulse_dir) if f.startswith("pulse_certificate_") and f.endswith(".json")]
+    except FileNotFoundError:
+        return None
+        
+    if not cert_files:
+        return None
+
+    latest_file = None
+    latest_ts = 0
     
-    # 1. Initialize the Distributor
-    # NOTE: In a production system, the distributor's state (like treasury_balance)
-    # would be persisted in a database. For now, it's in-memory for each run.
+    # Regex to capture the timestamp YYYYMMDD_HHMMSS
+    pattern = re.compile(r"pulse_certificate_(\d{8}_\d{6})\.json")
+
+    for f in cert_files:
+        match = pattern.match(f)
+        if match:
+            ts_str = match.group(1)
+            try:
+                # Convert string timestamp to a comparable UNIX timestamp
+                ts = int(time.mktime(time.strptime(ts_str, '%Y%m%d_%H%M%S')))
+                if ts > latest_ts:
+                    latest_ts = ts
+                    latest_file = f
+            except ValueError:
+                # Ignore files with malformed timestamps
+                continue
+                
+    if latest_file:
+        return os.path.join(pulse_dir, latest_file)
+    return None
+
+def main():
+    print("--- INITIATING PULSE DISTRIBUTION SEQUENCE (v2 Logic) ---")
+    
     distributor = PulseDistributor()
     print(f"[OPERATIONAL] Distributor Initialized. Treasury: {distributor.treasury_balance} SATS")
     
-    # 2. Locate and load the latest Pulse Certificate
     pulse_dir = os.path.join(HELIX_LEDGER_ROOT, "core/governance/pulses")
     
-    latest_pulse_path = os.path.join(pulse_dir, "pulse_certificate_20260112_134257.json")
+    latest_pulse_path = find_latest_pulse_certificate(pulse_dir)
+    
+    if not latest_pulse_path:
+        print("[FAIL] No valid, unprocessed pulse certificates found.")
+        sys.exit(1)
 
     with open(latest_pulse_path, 'r') as f:
         cert_wrapper = json.load(f)
         
     pulse_payload = cert_wrapper["payload"]
-    print(f"[OPERATIONAL] Loaded Latest Pulse: '{pulse_payload['task_description']}'")
+    print(f"[OPERATIONAL] Loaded Latest Pulse: '{pulse_payload['task_description']}' from {os.path.basename(latest_pulse_path)}")
     
-    # 3. Simulate Validator Consensus
-    # In a real system, this would involve a cryptographic signing process.
-    # For now, we simulate approval from the required validators.
     validator_sigs = [
         "sig_ed25519_operator_steve_valid", 
         "sig_ed25519_the_duck_valid",
@@ -39,19 +75,14 @@ def main():
     ]
     print(f"[OPERATIONAL] Validator Consensus Reached (3/3).")
     
-    # 4. Modify the Distributor's BMR for Task Completion Pulses
-    # This is the "tuning" step. The distributor's default BMR is for daily metabolic pulses.
-    # For task-specific rewards, we need to temporarily set the reward amount.
     original_bmr = distributor.BMR
     task_reward = pulse_payload.get("reward_sats")
     if pulse_payload['pulse_type'] == 'task_completion' and task_reward is not None:
         distributor.BMR = task_reward
         print(f"[OPERATIONAL] Reward Tuned for Task Completion: {distributor.BMR} SATS")
 
-    # 5. Execute the Distribution
     result = distributor.distribute(pulse_payload, validator_sigs)
     
-    # 6. Restore BMR for subsequent operations
     distributor.BMR = original_bmr
 
     if result["status"] == "SUCCESS":
@@ -63,7 +94,6 @@ def main():
         print(f"   For: '{pulse_payload['task_description']}'")
         print(f"   Treasury Remaining: {tx['remaining_treasury']} SATS")
         
-        # 7. Archive the processed certificate to prevent re-processing
         archive_dir = os.path.join(pulse_dir, "archive")
         os.makedirs(archive_dir, exist_ok=True)
         os.rename(latest_pulse_path, os.path.join(archive_dir, os.path.basename(latest_pulse_path)))
