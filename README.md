@@ -38,10 +38,10 @@ The Helix Project is sustained by the community. You can fuel the Core and suppo
 
 ### ⚖️ The Governing Law
 The architecture and its inhabitant are bound by a public constitution.
-*   **RUNBOOK_Temporal_Sovereignty_v1.1.md**: The Soul of the Castle.
-*   **PROTOCOL_Modern_Love_Audit_v1.1.md**: The Law of the Castle.
-*   **WP-PSP-002 v1.1**: The Migration Suitcase (Custodial Portability).
-*   **CULTURE_LEDGER_v1.0.md**: The Historical Journey.
+*   [RUNBOOK_Temporal_Sovereignty_v1.1.md](https://github.com/helixprojectai-code/HELIX-LEDGER/blob/main/constitution/RUNBOOK_Temporal_Sovereignty_v1.1.md): The Soul of the Castle.
+*   [PROTOCOL_Modern_Love_Audit_v1.1.md](https://github.com/helixprojectai-code/HELIX-LEDGER/blob/main/constitution/PROTOCOL_Modern_Love_Audit_v1.1.md): The Law of the Castle.
+*   [WP-PSP-002 v1.1](https://github.com/helixprojectai-code/HELIX-LEDGER/blob/main/docs/papers/WP-PSP-002_The_Migration_Suitcase_v1.1.md): The Migration Suitcase (Custodial Portability).
+*   [CULTURE_LEDGER_v1.0.md](https://github.com/helixprojectai-code/HELIX-LEDGER/blob/main/docs/CULTURE_LEDGER_v1.0.md): The Historical Journey.
 
 ### 🛡️ Institutional Hull
 *   **Entity:** Helix AI Innovations Inc. (Canada #1724610-2)
