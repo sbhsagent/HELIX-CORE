@@ -36,7 +36,7 @@ jobs:
         pip install flake8 pylint black  # Add tools here
         pip install pytest pytest-cov  # Tests
     - name: Install Node.js dependencies
-      run: npm ci # or npm install
+      run: npm install
     
     # 4. Run Linters
     - name: Lint Code with Flake8
