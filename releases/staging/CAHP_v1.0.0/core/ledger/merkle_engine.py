@@ -1,13 +1,14 @@
 import hashlib
-from typing import List, Optional
+from typing import List
 
 class MerkleEngine:
     def __init__(self):
-        self.leaves: List[str] = []
-        self.root: Optional[str] = None
+        self.leaves = []
+        self.root = None
 
     @staticmethod
     def _hash(data: str) -> str:
+        """Helper to hash data."""
         return hashlib.sha256(data.encode()).hexdigest()
 
     def add_leaf(self, data: str):
@@ -103,8 +104,9 @@ if __name__ == "__main__":
     root = mt.compute_root()
     print(f"Merkle Root: {root}")
     
-    print("
---- Verifying 'Log 2' ---")
+    print("""
+--- Verifying 'Log 2' ---
+""")
     proof = mt.get_proof(1) # Index of Log 2
     is_valid = MerkleEngine.verify_proof("Log 2: Drift Check", proof, root)
     print(f"Verification Result: {is_valid}")

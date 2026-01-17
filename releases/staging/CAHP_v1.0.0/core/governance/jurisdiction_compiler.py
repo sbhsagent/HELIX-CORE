@@ -74,12 +74,14 @@ if __name__ == "__main__":
     print("--- Base Role ---")
     print(json.dumps(base_role, indent=2))
     
-    print("
---- Compiled for EU (GDPR) ---")
+    print("""
+--- Compiled for EU (GDPR) ---
+""")
     eu_policy = compiler.compile_policy(base_role, "EU")
     print(json.dumps(eu_policy, indent=2))
     
-    print("
---- Compiled for Helix Neutral Zone ---")
+    print("""
+--- Compiled for Helix Neutral Zone ---
+""")
     nz_policy = compiler.compile_policy(base_role, "HELIX-NZ")
     print(json.dumps(nz_policy, indent=2))

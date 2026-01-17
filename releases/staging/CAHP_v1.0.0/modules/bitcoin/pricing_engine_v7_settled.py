@@ -78,17 +78,20 @@ if __name__ == "__main__":
     
     # 3. The agent core would then execute this instruction.
     #    (Simulating the tool calls `make_invoice` and `pay_invoice`)
-    print("
-Step 2: Agent Core would execute payment and receive a payment hash.")
+    print("""
+Step 2: Agent Core would execute payment and receive a payment hash.
+""")
     simulated_payment_hash = "331bae6024d8f29d4511ab103e357d066ffe96f1bf46d156b3f27955fc4efd41"
     
     # 4. The agent core confirms settlement by calling the logging function.
-    print("
-Step 3: Agent Core confirms settlement by logging the transaction.")
+    print("""
+Step 3: Agent Core confirms settlement by logging the transaction.
+""")
     engine.log_settled_action(instruction, simulated_payment_hash)
 
-    print("
---- Contents of audit_log.json ---")
+    print("""
+--- Contents of audit_log.json ---
+""")
     with open(engine.LOG_FILE, "r") as f:
         for line in f:
             print(line.strip())

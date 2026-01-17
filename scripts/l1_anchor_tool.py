@@ -56,16 +56,18 @@ def main():
 
     # 4. Construct and broadcast the transaction
     try:
-        print("
-Constructing and broadcasting transaction...")
+        print("""
+Constructing and broadcasting transaction...
+""")
         # The bit library's send() function with a message automatically creates
         # an OP_RETURN output. It also handles UTXO selection, fee calculation,
         # and sending the change back to the source address.
         # The "burn" is the transaction fee paid to the miners.
         txid = key.send([], message=op_return_hex)
         
-        print("
-✅ ANCHORING TRANSACTION BROADCAST COMPLETE")
+        print("""
+✅ ANCHORING TRANSACTION BROADCAST COMPLETE
+""")
         print(f"   TXID: {txid}")
         print("   This TXID is the permanent, verifiable proof of your ledger's integrity.")
         print("   You can now notarize this TXID or view it on a block explorer.")
